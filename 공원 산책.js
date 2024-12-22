@@ -1,63 +1,63 @@
 // 공원 산책
 // 프로그래머스 1단계
-// 문제 틀림
+// 2번째 풀이 정답
 
 function solution(park, routes) {
-    const curr = [];
+    const idx = [];
+    let curr = [];
     for (let i = 0; i < park.length; i++) {
-        if (park[i].indexOf('S') !== -1) {
-            curr[0] = i;
-            curr[1] = park[i].indexOf('S');
-            break;
-        }
+        idx[i] = park[i].split('');
     }
-    for (const move of routes) {
-        let [a, b] = move.split(' ');
-        b = Number(b);
-        lable: switch (a) {
-            case 'E':
-                if (park[curr[0]].slice(curr[1] + b) === '') {
-                    break lable;
-                }
-                for (let i = 0; i < b; i++) {
-                    if (park[curr[0]].slice(curr[1] + i + 1) === 'X') {
-                        break lable;
+    idx.forEach((arr, i) => {
+        arr.forEach((v, k) => {
+            if (v === 'S') {
+                curr = [i, k]
+            }
+        });
+    });
+    label: for (const val of routes) {
+        let [op, n] = val.split(' ');
+        n = Number(n);
+        let y = curr[0];
+        let x = curr[1];
+        switch (op) {
+            case 'E': 
+                for (let i = 1; i <= n; i++) {
+                    if (!idx[y] || idx[y][x + i] === 'X' || idx[y][x + i] === undefined) {
+                        continue label;
                     }
                 }
-                curr[1] += b;
                 break;
             case 'W':
-                if (curr[1] < b) {
-                    break lable;
-                }
-                for (let i = 0; i < b; i++) {
-                    if ((park[curr[0]].slice(curr[1] - i - 1) === 'X')) {
-                        break lable;
+                for (let i = 1; i <= n; i++) {
+                    if (!idx[y] || idx[y][x - i] === 'X' || idx[y][x - i] === undefined) {
+                        continue label;
                     }
                 }
-                curr[1] -= b;
                 break;
             case 'S':
-                if (curr[0] + b > park.length - 1) {
-                    break lable;
-                }
-                for (let i = 0; i < b; i++) {
-                    if (park[curr[0] + i + 1].slice(curr[1], curr[1] + 1) === 'X') {
-                        break lable;
+                 for (let i = 1; i <= n; i++) {
+                    if (!idx[y + i] || idx[y + i][x] === 'X' || idx[y + i][x] === undefined) {
+                        continue label;
                     }
                 }
-                curr[0] += b;
                 break;
             case 'N':
-                if (curr[0] - b < 0) {
-                    break lable;
-                }
-                for (let i = 0; i < b; i++) {
-                    if (park[curr[0] - i - 1].slice(curr[1], curr[1] + 1) === 'X') {
-                        break lable;
+                 for (let i = 1; i <= n; i++) {
+                    if (!idx[y - i] || idx[y - i][x] === 'X' || idx[y - i][x] === undefined) {
+                        continue label;
                     }
                 }
-                curr[0] -= b;
+                break;
+        }
+        switch (op) {
+            case 'E': curr[1] += n;
+                break;
+            case 'W': curr[1] -= n;
+                break;
+            case 'S': curr[0] += n;
+                break;
+            case 'N': curr[0] -= n;
                 break;
         }
     }
