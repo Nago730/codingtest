@@ -38,3 +38,9 @@ function solution(today, terms, privacies) {
     });
     return answer;
 }
+
+// 좀 더 나은 방법들
+// 1. 날짜 계산 라이브러리 사용
+//    => new Date() 사용
+// 2. 모든 날짜를 일 단위로 변환하여 계산 
+//    => 한 달이 28일이라는 점을 이용하여 계산
