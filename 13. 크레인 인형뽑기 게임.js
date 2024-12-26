@@ -19,3 +19,11 @@ function solution(board, moves) {
     });
     return result;
 }
+
+// 추가로 배울 점
+const transpose = matrix =>
+    matrix.reduce(
+        (result, row) => row.map((_, i) => [...(result[i] || []), row[i]]),
+        []
+    );
+// 행렬 전치 함수 (행과 열을 뒤집음)
