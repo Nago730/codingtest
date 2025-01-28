@@ -72,3 +72,39 @@ function solution(friends, gifts) {
     }
     return howmany;
 }
+
+// 2개월만에 새롭게 풀어봄 훨씬 간결해진 코드 굿
+function solution(friends, gifts) {
+    const log = {}; // 이름: {give: {name: n, name2: n}, index: n, receive: n}
+    friends.forEach(v => {
+        log[v] = {give: {}, index: 0, receive: 0};
+        friends.forEach(f => log[v].give[f] = 0);
+    });
+    
+    gifts.forEach(v => {
+        const [g, r] = v.split(' ');
+        log[g].give[r] ? log[g].give[r]++ : log[g].give[r] = 1;
+        log[g].index++;
+        log[r].index--;
+    });
+    
+    for (let i = 0; i < friends.length; i++) {
+        const a = friends[i];
+        for (let j = i + 1; j < friends.length; j++) {
+            const b = friends[j];
+            if (log[a].give[b] > log[b].give[a]) {
+                log[a].receive++;
+            } else if (log[a].give[b] < log[b].give[a]) {
+                log[b].receive++;
+            } else if (log[a].give[b] === log[b].give[a]) {
+                if (log[a].index > log[b].index) {
+                    log[a].receive++;
+                } else if (log[a].index < log[b].index) {
+                    log[b].receive++;
+                }
+            }
+        }
+    }
+    
+    return Math.max(...Object.keys(log).map(v => log[v].receive));
+}
