@@ -21,3 +21,15 @@ function solution(n, m) {
     }
     return result;
 }
+
+// 유클리드 호제법 풀이
+function solution (n, m) {
+    let r;
+    let [a, b] = [m, n];
+    while ((a % b) > 0) {
+        r = a % b;
+        a = b;
+        b = r;
+    }
+    return [b, n*m/b];
+}
