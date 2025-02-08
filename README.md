@@ -8,10 +8,10 @@ coding_test/
 │   │   ├── string/       # 문자열 처리
 │   │   └── simulation/   # 시뮬레이션
 │   ├── data_structures/   # 자료구조
-│   │   ├── array/       
-│   │   ├── hash/        
-│   │   ├── stack_queue/ 
-│   │   └── tree/        
+│   │   ├── array/       # 배열
+│   │   ├── hash/        # 해시
+│   │   ├── stack_queue/  # 스택 큐
+│   │   └── tree/        # 트리
 │   ├── algorithms/        # 알고리즘
 │   │   ├── sorting/     
 │   │   ├── dfs_bfs/     
