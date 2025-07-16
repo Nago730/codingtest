@@ -9,32 +9,31 @@ const phoneNumberMapping = {
     '9': ['w', 'x', 'y', 'z']
 };
 
-let matrix;
-let answer = [];
-
 /**
  * @param {string} digits
  * @return {string[]}
  */
 var letterCombinations = function(digits) {
-    answer = [];
-    matrix = [...digits].map(digit => phoneNumberMapping[digit]);
     if (!digits) return [];
-    backTraking();
+    
+    const answer = [];
+    const matrix = [...digits].map(digit => phoneNumberMapping[digit]);
+    
+    function backTraking(idx, path) {
+        if (idx === matrix.length) {
+            answer.push(path.join(''))
+            return;
+        }
+
+        const letters = matrix[idx];
+
+        for (const letter of letters) {
+            path.push(letter);
+            backTraking(idx + 1, path);
+            path.pop();
+        }
+    }
+    
+    backTraking(0, []);
     return answer;
 };
-
-function backTraking(i = 0, path = []) {
-    const digits = matrix[i];
-    for (let j = 0; j < digits.length; j++) {
-        path.push(digits[j]);
-        if (matrix[i + 1]) {
-            backTraking(i + 1, path);
-        } else {
-            answer.push(path.join(''));
-            path.pop();
-            continue;
-        }
-        path.pop();
-    }
-}
