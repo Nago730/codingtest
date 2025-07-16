@@ -3,14 +3,16 @@
  * @return {number}
  */
 var reverse = function(x) {
-    const sign = x >= 0 ? 1 : -1;
-    x = x >= 0 ? x : -x;
-    let answer = 0;
-    while(x) {
-        answer *= 10;
-        answer += x % 10;
-        x = Math.floor(x / 10);
-        if (answer < -(2**31) || answer > 2**31 - 1) return 0;
+    let OldVal;
+    if(x < 0) OldVal = x;
+    x = Math.abs(x);
+    let s = 0;
+    while(x >0) {
+        let r = x%10;
+        s = r + s*10;
+        x = Math.floor(x/10);
     }
-    return answer * sign;
+    if(OldVal < 0) s = -s;
+    if(s < -(2**31) || s > 2**31-1) return 0;
+    return s;
 };
