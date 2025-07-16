@@ -13,6 +13,8 @@ var reverse = function(x) {
         x = Math.floor(x/10);
     }
     if(OldVal < 0) s = -s;
-    if(s < -(2**31) || s > 2**31-1) return 0;
+    const initMin = -Math.pow(2, 31);
+    const initMax = Math.pow(2, 31) - 1;
+    if(s < initMin || s > initMax) return 0;
     return s;
 };
